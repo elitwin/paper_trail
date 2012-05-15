@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,10 +13,16 @@
 
 ActiveRecord::Schema.define(:version => 20110208155312) do
 
+  create_table "animals", :force => true do |t|
+    t.string "name"
+    t.string "species"
+  end
+
   create_table "articles", :force => true do |t|
     t.string "title"
     t.string "content"
     t.string "abstract"
+    t.string "file_upload"
   end
 
   create_table "authorships", :force => true do |t|
@@ -27,10 +34,37 @@ ActiveRecord::Schema.define(:version => 20110208155312) do
     t.string "title"
   end
 
+  create_table "documents", :force => true do |t|
+    t.string "name"
+  end
+
   create_table "fluxors", :force => true do |t|
     t.integer "widget_id"
     t.string  "name"
   end
+
+  create_table "legacy_widgets", :force => true do |t|
+    t.string  "name"
+    t.integer "version"
+  end
+
+  create_table "paper_trail_versions", :force => true do |t|
+    t.string   "item_type",      :null => false
+    t.integer  "item_id",        :null => false
+    t.string   "event",          :null => false
+    t.string   "whodunnit"
+    t.text     "object"
+    t.text     "object_changes"
+    t.datetime "created_at"
+    t.integer  "answer"
+    t.string   "action"
+    t.string   "question"
+    t.integer  "article_id"
+    t.string   "ip"
+    t.string   "user_agent"
+  end
+
+  add_index "paper_trail_versions", ["item_type", "item_id"], :name => "index_paper_trail_versions_on_item_type_and_item_id"
 
   create_table "people", :force => true do |t|
     t.string "name"
@@ -58,22 +92,12 @@ ActiveRecord::Schema.define(:version => 20110208155312) do
     t.integer "length"
   end
 
-  create_table "versions", :force => true do |t|
-    t.string   "item_type",  :null => false
-    t.integer  "item_id",    :null => false
-    t.string   "event",      :null => false
-    t.string   "whodunnit"
-    t.text     "object"
-    t.datetime "created_at"
-    t.integer  "answer"
-    t.string   "action"
-    t.string   "question"
-    t.integer  "article_id"
-    t.string   "ip"
-    t.string   "user_agent"
+  create_table "translations", :force => true do |t|
+    t.string "headline"
+    t.string "content"
+    t.string "language_code"
+    t.string "type"
   end
-
-  add_index "versions", ["item_type", "item_id"], :name => "index_versions_on_item_type_and_item_id"
 
   create_table "widgets", :force => true do |t|
     t.string   "name"

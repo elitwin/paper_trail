@@ -38,12 +38,28 @@ def change_schema
   ActiveRecord::Migration.verbose = false
   ActiveRecord::Schema.define do
     remove_column :widgets, :sacrificial_column
-    add_column :versions, :custom_created_at, :datetime
+    add_column :paper_trail_versions, :custom_created_at, :datetime
   end
   ActiveRecord::Migration.verbose = true
 end
 
-class Version < ActiveRecord::Base
+def drop_schema_table(name)
+  ActiveRecord::Migration.verbose = false
+  ActiveRecord::Schema.define do
+    drop_table name
+  end
+  ActiveRecord::Migration.verbose = true  
+end
+
+def rename_schema_table(old_name, new_name)
+  ActiveRecord::Migration.verbose = false
+  ActiveRecord::Schema.define do
+    rename_table old_name, new_name
+  end
+  ActiveRecord::Migration.verbose = true  
+end
+
+class PaperTrail::Version < ActiveRecord::Base
   attr_accessible :created_at, :updated_at,
     :answer, :action, :question, :article_id, :ip, :user_agent
 end
