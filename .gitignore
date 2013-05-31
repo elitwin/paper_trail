@@ -12,4 +12,6 @@ pkg/*
 Gemfile.lock
 vendor/*
 .rvmrc
+.ruby-version
+.ruby-gemset
 *.komodoproject
